@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "URL Lockup",
-  "version": "0.5.0",
+  "version": "0.7.1",
   "description": "Prevent phishing with urlLockup",
   "author": "Victor Gonçalves da Luz",
 
@@ -28,6 +28,6 @@
   },
 
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js", "type": "module"
   }
 }
