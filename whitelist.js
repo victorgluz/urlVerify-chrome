@@ -1,12 +1,10 @@
-export default {
-"youtube.com": "safe",
-"google.com": "safe",
-"uol.com.br": "safe",
-"globo.com": "safe",
-"facebook.com": "safe",
-"instagram.com": "safe",
-"twitter.com": "safe",
-"wikipedia.org": "safe",
-"pornhub.com": "nfsw",
-"xvideos.com": "nsfw"
-}
+export default [
+"youtube.com",
+"google.com",
+"uol.com.br",
+"globo.com",
+"facebook.com",
+"instagram.com",
+"twitter.com",
+"wikipedia.org"
+]
