@@ -10,8 +10,7 @@
     "notifications",
     "tabs",
     "storage",
-    "activeTab",
-    "content_scripts"
+    "activeTab"
   ],
 
   "action": {

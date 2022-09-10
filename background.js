@@ -5,7 +5,6 @@
 
 import * as countryList from './countryList.js';
 import * as whitelist from './whitelist.js';
-import * as blacklist from './blacklist.js';
 
 async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true }
@@ -122,16 +121,10 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
         var newTab = false
         let tabs = getCurrentTab()
         const url = new URL(tab.url)
-        if(whitelistCheck(url)){
-            //do nothing, founded on whitelist.
-        }else{
-            if(blackListCheck(url)){
-                //Block request
-            }else{
-                let isHttps = protocolCheck(url)
-                if(isHttps){
-                    domainCheck(url)
-                }
+        if(whitelistCheck(url) == false){
+            let isHttps = protocolCheck(url)
+            if(isHttps){
+                domainCheck(url)
             }
         }
     }
