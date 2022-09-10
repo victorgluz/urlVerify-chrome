@@ -13,6 +13,10 @@
     "activeTab"
   ],
 
+  "host_permissions": [
+    "https://www.urlverify.com.br/*"
+  ], 
+
   "action": {
     "default_icon": {
       "16": "img/icon16.png",
@@ -20,7 +24,7 @@
       "32": "img/icon32.png",
       "64": "img/icon64.png"
     },
-    "default_title": "URL Lockup",
+    "default_title": "URL Verify",
     "default_popup": "index.html"
   },
 

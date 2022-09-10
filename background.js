@@ -65,25 +65,10 @@ function protocolCheck(url){ //stage-1
 }
 
 function whoisCheck(url){
-    // whois search
-}
-
-function domainCheck(url){
-    let host = url.host.split('.')
-    let countries = countryList.default
-
-    if(host.length == 2){
-        if(host[1] == "com" || host[1] == "net" || host[1] == "org"){
-            whoisCheck(url)
-        }else{
-            notify('warning', notifications('domain', countries[host[1]]))
-        }
-    }else if(host.length == 3){
-
-    }else if(host.length == 4){
-
-    }
-    
+    console.log('whois check');
+    fetch('https://www.urlverify.com.br/check.php?url='+url).then(r => r.text()).then(result => {
+        console.log(result);
+    }) 
 }
 
 function getHost(url){
@@ -124,7 +109,11 @@ chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
         if(whitelistCheck(url) == false){
             let isHttps = protocolCheck(url)
             if(isHttps){
-                domainCheck(url)
+                if(whoisCheck(url)){
+                    //accept
+                }else{
+                    //block
+                }
             }
         }
     }
