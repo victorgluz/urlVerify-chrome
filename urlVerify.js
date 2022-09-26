@@ -1,4 +1,5 @@
 const urlWhitelist = [
+    "urlverify.com.br",
     "youtube.com",
     "google.com",
     "uol.com.br",
@@ -12,24 +13,27 @@ const urlWhitelist = [
 const urlBlacklist = [
     "globo.com",
     "redemine.com.br",
-    "turbolinks.com.br"
+    "turbolinks.com.br",
+    "victorgluz.com.br"
 ]
 
 
-function blackListCheck(url){
-    replaced = url.replace('www.', '')
+function blackListCheck(){
+    debugger
+    replaced = window.location.host.replace('www.', '')
     if(urlBlacklist.includes(replaced)){
-        window.location.href = "https://urlverify.com.br/?action=blacklist&url="+replaced
+        window.location.href = "https://urlverify.com.br/warning/&url="+replaced+"&action=unsafe"
     }else{
         console.log("Nothing found on blacklist")
         return false
     }
 }
 
-function protocolCheck(url){
-    if(url.protocol != "chrome:"){
-        if(url.protocol != "https:"){
-            window.location.href = "https://urlverify.com.br/?action=http&url="+replaced
+function protocolCheck(){
+    protocol = window.location.protocol
+    if(protocol != "chrome:"){
+        if(protocol != "https:"){
+            window.location.href = "https://urlverify.com.br/warning/?url="+replaced+"&action=http"
             return false
         }else{
             return true
@@ -40,29 +44,16 @@ function protocolCheck(url){
 }
 
 function whoisCheck(url){
-    console.log('whois check: https://who.is/whois/'+url)
     fetch('https://www.urlverify.com.br/whois.php?url='+url).then(r => r.text()).then(result => {
+        debugger
         if(result == false){
             window.location.href = "https://urlverify.com.br/?action=unsafe&url="+replaced
         }
     }) 
 }
 
-function getHost(url){
-    let host = url.split('.')
-    if(host.length == 2){
-        return host
-    }else if(host.length >= 3){
-        if(countries[host[2]]){
-            return host[0]+"."+host[1]+"."+host[2]
-        }else{
-            return host[1]+"."+host[2]
-        }
-    }
-}
-
 function whitelistCheck(url){
-    if(urlWhitelist.includes(getHost(url))){
+    if(urlWhitelist.includes(url.host)){
         console.log("Founded on whitelist")
         return true
     }else{
@@ -71,17 +62,49 @@ function whitelistCheck(url){
     }
 }
 
+function verificationStatus(){
+    var urlParams = new URLSearchParams(window.location.search);
+    var urlVerify = urlParams.get('urlVerify');
+    if(urlVerify == "disabled"){
+        localStorage.setItem('urlVerify', 'disabled');
+        window.location.href = window.location.origin + window.location.pathname;
+        return true;
+    }else if(urlVerify == "enabled"){
+        localStorage.setItem('urlVerify', 'enabled');
+        window.location.href = window.location.origin + window.location.pathname;
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function needVerify(){
+    var urlDisabled = localStorage.getItem('urlVerify');
+    if(urlDisabled && urlDisabled == "disabled"){
+        return false;
+    }else if(urlDisabled && urlDisabled == "enabled"){
+        return true;
+    }else{
+        return true;
+    }
+}
+
+
 // Início - Execução da verifcação da url
 function urlVerification(){
-    const url = window.location.host
-    if(blackListCheck(url) == false){
-        if(whitelistCheck(url) == false){
-            let isHttps = protocolCheck(url)
-            if(isHttps){
-                if(whoisCheck(url)){
-                    //accept
-                }else{
-                    //block
+    const url = window.location.href
+    if(verificationStatus() == true){
+        if(needVerify() == true){
+            if(blackListCheck(url) == false){
+                if(whitelistCheck(url) == false){
+                    let isHttps = protocolCheck(url)
+                    if(isHttps){
+                        if(whoisCheck(url)){
+                            //accept
+                        }else{
+                            //block
+                        }
+                    }
                 }
             }
         }
