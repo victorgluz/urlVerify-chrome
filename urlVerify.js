@@ -22,7 +22,7 @@ function blackListCheck(){
     debugger
     replaced = window.location.host.replace('www.', '')
     if(urlBlacklist.includes(replaced)){
-        window.location.href = "https://urlverify.com.br/warning/&url="+replaced+"&action=unsafe"
+        window.location.href = "https://urlverify.com.br/warning/?url="+replaced+"&action=unsafe"
     }else{
         console.log("Nothing found on blacklist")
         return false
@@ -47,7 +47,7 @@ function whoisCheck(url){
     fetch('https://www.urlverify.com.br/whois.php?url='+url).then(r => r.text()).then(result => {
         debugger
         if(result == false){
-            window.location.href = "https://urlverify.com.br/?action=unsafe&url="+replaced
+            window.location.href = "https://urlverify.com.br/warning/?url="+replaced+"&action=unsafe"
         }
     }) 
 }
