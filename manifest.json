@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "URL Verify",
-  "version": "0.7.2",
-  "description": "Prevent phishing with urlVerify",
+  "version": "1.0.0",
+  "description": "Prevent phishing with URL Verify",
   "author": "Victor Gonçalves da Luz",
   "homepage_url": "https://www.urlverify.com.br",
 
