@@ -13,8 +13,7 @@ const urlWhitelist = [
 const urlBlacklist = [
     "victorgluz.com.br",
     "economizando.net",
-    "redemine.com.br",
-    "estudante.sesisenai.org.br"
+    "redemine.com.br"
 ]
 
 
